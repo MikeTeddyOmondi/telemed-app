@@ -35,7 +35,7 @@ async function initialiseDatabase() {
       );
     `;
     await db.query(rolesTable);
-    console.log("Roles table created or already exists");
+    // console.log("Roles table created or already exists");
 
     // Create the 'users' table if it doesn't exist
     const usersTable = `
@@ -49,7 +49,7 @@ async function initialiseDatabase() {
       );
     `;
     await db.query(usersTable);
-    console.log("Users table created or already exists");
+    // console.log("Users table created or already exists");
 
     // Create the 'patients' table
     const patientsTable = `
@@ -63,7 +63,7 @@ async function initialiseDatabase() {
       )
     `;
     await db.query(patientsTable);
-    console.log("Patients table created or already exists");
+    // console.log("Patients table created or already exists");
 
     // Create the 'providers' table
     const doctorsTable = `
@@ -78,7 +78,7 @@ async function initialiseDatabase() {
       )
     `;
     await db.query(doctorsTable);
-    console.log("Doctors table created or already exists");
+    // console.log("Doctors table created or already exists");
 
     // Create the 'visits' table
     const visitsTable = `
@@ -99,7 +99,7 @@ async function initialiseDatabase() {
       )
     `;
     await db.query(visitsTable);
-    console.log("Visits table created or already exists");
+    // console.log("Visits table created or already exists");
 
     // Create the 'ed_visits' table
     const edVisitsTable = `
@@ -115,7 +115,7 @@ async function initialiseDatabase() {
       )
     `;
     await db.query(edVisitsTable);
-    console.log("ED Visits table created or already exists");
+    // console.log("ED Visits table created or already exists");
 
     // Create the 'admissions' table
     const admissionsTable = `
@@ -131,7 +131,7 @@ async function initialiseDatabase() {
       )
     `;
     await db.query(admissionsTable);
-    console.log("Admissions table created or already exists");
+    // console.log("Admissions table created or already exists");
 
     // Create the 'discharges' table
     const dischargesTable = `
@@ -147,6 +147,8 @@ async function initialiseDatabase() {
     `;
     await db.query(dischargesTable);
     // console.log("Discharges table created or already exists");
+
+    console.log("[#] Database migrations completed!");
   } catch (err) {
     console.error("Error initializing database: ", err);
   } finally {
@@ -157,8 +159,7 @@ async function initialiseDatabase() {
 }
 
 function pool() {
-  const pool = mysql.createPool({ ...dbConfig });
-  return pool;
+  return mysql.createPool({ ...dbConfig });
 }
 
 module.exports = { initialiseDatabase, pool };

@@ -37,7 +37,7 @@ const sessionStore = new mysqlSessionStore(sessionStoreOpts, pool());
 sessionStore
   .onReady()
   .then(() => {
-    console.log(`[#] Session store is ready...`);
+    console.log(`[#] Session store is ready!`);
   })
   .catch((err) => {
     console.error(`[!] Error initiating session store ${err.message}`);
@@ -74,7 +74,7 @@ app.use((req, res) => {
     await initialiseDatabase();
 
     app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server listening: http://localhost:${PORT}`);
+      console.log(`[#] Server listening: http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error({

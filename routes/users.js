@@ -28,7 +28,6 @@ usersRouter.post("/login", async function (req, res) {
         .status(200)
         .json({ success: true, message: "Login successful!" });
     } else {
-      // res.redirect('/login');
       return res
         .status(400)
         .json({ success: false, message: "User not found" });
