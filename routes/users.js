@@ -23,6 +23,7 @@ usersRouter.post("/login", async function (req, res) {
           .status(400)
           .json({ success: false, message: "Invalid credentials!" });
       }
+      // set session
       req.session.userId = rows[0].user_id;
       return res
         .status(200)
@@ -43,7 +44,7 @@ usersRouter.post("/login", async function (req, res) {
 // Register
 usersRouter.post("/signup", async function (req, res) {
   const { username, email, password } = req.body;
-  console.log({ username, email, password });
+  // console.log({ username, email, password });
   if (!username || !email || !password)
     return res
       .status(400)
@@ -58,15 +59,22 @@ usersRouter.post("/signup", async function (req, res) {
         .status(500)
         .json({ success: false, error: "User already exists!" });
     }
-    const [result] = await pool().query(
-      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-      [String(username).toLowerCase(), email, hashedPassword]
+
+    // TODO: this should be a transaction!!!
+    const [userResult] = await pool().query(
+      "INSERT INTO users (username, email, password, role_id) VALUES (?, ?, ?, ?)",
+      [String(username).toLowerCase(), email, hashedPassword, 3]
+    );    
+    const [patientResult] = await pool().query(
+      "INSERT INTO patients (patient_id) VALUES (?)",
+      [userResult.insertId]
     );
-    req.session.userId = result.insertId;
+    req.session.userId = userResult.insertId;
     return res
       .status(200)
       .json({ success: true, message: "Signup successful!" });
   } catch (err) {
+    console.log({err})
     console.log({ registration_error: err.message });
     return res
       .status(500)

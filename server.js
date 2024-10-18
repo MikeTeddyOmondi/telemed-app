@@ -74,11 +74,11 @@ app.use((req, res) => {
     await initialiseDatabase();
 
     app.listen(PORT, "0.0.0.0", () => {
-      console.log(`[#] Server listening: http://localhost:${PORT}`);
+      console.log(`[#] ✅ Server is running: http://localhost:${PORT} 🚀🚀🚀`);
     });
   } catch (error) {
     console.error({
-      application_error: `[!] Error starting the application: ${error.message}`,
+      application_error: `[!] ❌ Error starting the application: ${error.message}`,
     });
   }
 })();

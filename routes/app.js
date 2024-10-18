@@ -24,7 +24,9 @@ appRouter.get("/signup", (req, res) => {
 appRouter.get("/profile", checkAuth, (req, res) => {
   return res
     .status(200)
-    .sendFile(path.join(__dirname, "..", "public", "profile.html"));
+    .sendFile(path.join(__dirname, "..", "public", "pages", "patients", "profile.html"));
 });
 
 module.exports = appRouter;
+
+// https://www.brooker.co.za/blog/2023/03/23/economics.html

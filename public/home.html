@@ -17,7 +17,7 @@
         </ul>
         <ul>
           <li><a href="#" class="secondary">Services</a></li>
-          <li>
+          <li style="display: none">
             <details class="dropdown">
               <summary>Account</summary>
               <ul dir="rtl">
@@ -28,14 +28,35 @@
               </ul>
             </details>
           </li>
-          <li><button class="primary">Login</button></li>
+          <li>
+            <button class="primary" onclick="goTo('/login')">Login</button>
+          </li>
         </ul>
       </nav>
     </header>
     <main class="container">
       <h1>Homepage</h1>
-      <p>This is the homepage</p>
+      <p>Welcome onboard...</p>
+
+      <section>
+        <figure>
+          <img
+            src="./img/landscape-unsplash.jpg"
+            width="2000"
+            height="1000"
+            alt="landscape"
+          />
+          <figcaption>
+            Image from
+            <a href="https://unsplash.com/photos/a562ZEFKW8I" target="_blank"
+              >unsplash.com</a
+            >
+          </figcaption>
+        </figure>
+      </section>
     </main>
     <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
+
+    <script src="js/script.js"></script>
   </body>
 </html>
