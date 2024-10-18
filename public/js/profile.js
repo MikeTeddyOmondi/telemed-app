@@ -1,10 +1,14 @@
 const form = document.getElementById("appointmentForm");
 const profileCard = document.getElementById("profileCard");
 const doctorSelect = document.getElementById("doctorId");
+const appointmentSubmitButton = document.getElementById(
+  "appointmentSubmitButton"
+);
 
 form.addEventListener("submit", createAppointment);
 
 async function fetchUserProfile() {
+  profileCard.setAttribute("aria-busy", true);
   // Make a GET request to our API endpoint
   // http://localhost:3377/api/user/profile
   try {
@@ -21,6 +25,7 @@ async function fetchUserProfile() {
 
     if (response.ok && result.success) {
       profileCard.textContent = JSON.stringify(result.data);
+      profileCard.setAttribute("aria-busy", "false");
       return;
     } else if (response.status === 400 && response.status === 500) {
       // response is not ok && result.success is false
@@ -28,6 +33,7 @@ async function fetchUserProfile() {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      profileCard.setAttribute("aria-busy", false);
       return;
     } else {
       // response is not ok && result.success is false
@@ -35,6 +41,7 @@ async function fetchUserProfile() {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      profileCard.setAttribute("aria-busy", false);
       return;
     }
   } catch (error) {
@@ -43,7 +50,10 @@ async function fetchUserProfile() {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    profileCard.setAttribute("aria-busy", false);
     return;
+  } finally {
+    profileCard.setAttribute("aria-busy", false);
   }
 }
 
@@ -99,17 +109,21 @@ async function userAppointments() {
 async function createAppointment(event) {
   event.preventDefault();
 
+  appointmentSubmitButton.setAttribute("aria-busy", true);
+
   const doctorId = document.getElementById("doctorId").value;
   const dateInput = document.getElementById("dateInput").value;
+  const timeInput = document.getElementById("timeInput").value;
   const appointmentDescription =
     document.getElementById("descriptionInput").value;
 
-  if (!doctorId || !dateInput || !appointmentDescription) {
+  if (!doctorId || !dateInput || !timeInput || !appointmentDescription) {
     console.error("Please fill in all the details!");
     errorMsg.textContent = "Please fill in all the details!";
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    appointmentSubmitButton.setAttribute("aria-busy", false);
     return;
   }
 
@@ -117,6 +131,7 @@ async function createAppointment(event) {
     doctorId,
     appointmentDescription,
     dateInput,
+    timeInput,
   };
   console.log({ formData });
 
@@ -125,7 +140,7 @@ async function createAppointment(event) {
   try {
     // send POST req
     const response = await fetch("/api/appointments", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -140,7 +155,7 @@ async function createAppointment(event) {
       errorMsg.style.backgroundColor = "lime";
       errorMsg.style.display = "block";
       errorMsg.style.color = "black";
-      return;
+      appointmentSubmitButton.setAttribute("aria-busy", false);
       return;
     } else if (response.status === 400 && response.status === 500) {
       // response is not ok && result.success is false
@@ -148,6 +163,7 @@ async function createAppointment(event) {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      appointmentSubmitButton.setAttribute("aria-busy", false);
       return;
     } else {
       // response is not ok && result.success is false
@@ -155,15 +171,20 @@ async function createAppointment(event) {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      appointmentSubmitButton.setAttribute("aria-busy", false);
       return;
     }
   } catch (error) {
+    console.log({ error });
     // Server error
     errorMsg.textContent = "Something went wrong!";
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    appointmentSubmitButton.setAttribute("aria-busy", false);
     return;
+  } finally {
+    appointmentSubmitButton.setAttribute("aria-busy", false);
   }
 }
 

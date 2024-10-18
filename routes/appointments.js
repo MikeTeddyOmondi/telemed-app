@@ -11,8 +11,8 @@ appointmentsRouter.post("/", async function (req, res) {
       .json({ success: false, error: "Please enter all fields!" });
 
   try {
-    // create appointment
-    
+    // check for appointment conflicts
+
   } catch (error) {
     console.log({ create_appointments_error: error.message });
     return res

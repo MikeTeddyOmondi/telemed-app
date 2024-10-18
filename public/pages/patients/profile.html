@@ -40,7 +40,7 @@
     </header>
     <main class="container">
       <h1>Profile</h1>
-      <article id="profileCard" aria-busy="true">Profile details</article>
+      <article id="profileCard" aria-busy="false">Profile details</article>
 
       <!-- Appointments form -->
       <section>
@@ -86,13 +86,62 @@
                 onfocus="removeErrorMsg()"
               />
             </label>
+            <label for="time">
+              Time
+              <input id="timeInput" type="time" name="appointmentTime" />
+            </label>
           </fieldset>
 
-          <input type="submit" value="Save" />
+          <button id="appointmentSubmitButton" type="submit" aria-busy="false">
+            Save
+          </button>
         </form>
       </section>
 
       <!-- Appointments Table -->
+      <section id="tables">
+        <h2>Appointments</h2>
+        <div class="overflow-auto">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
     <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
 

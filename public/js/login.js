@@ -1,10 +1,13 @@
 const form = document.getElementById("loginForm");
 const errorMsg = document.getElementById("errorMsg");
+const loginSubmitButton = document.getElementById("loginSubmitButton");
 
 form.addEventListener("submit", login);
 
 async function login(event) {
   event.preventDefault();
+
+  loginSubmitButton.setAttribute("aria-busy", true);
 
   const email = document.getElementById("emailInput").value;
   const password = document.getElementById("passwordInput").value;
@@ -15,6 +18,7 @@ async function login(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    loginSubmitButton.setAttribute("aria-busy", false);
     return;
   }
 
@@ -48,6 +52,7 @@ async function login(event) {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      loginSubmitButton.setAttribute("aria-busy", false);
       return;
     } else if (response.status === 500) {
       // response is not ok && result.success is false
@@ -55,6 +60,7 @@ async function login(event) {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      loginSubmitButton.setAttribute("aria-busy", false);
       return;
     }
   } catch (error) {
@@ -63,7 +69,10 @@ async function login(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    loginSubmitButton.setAttribute("aria-busy", false);
     return;
+  } finally {
+    loginSubmitButton.setAttribute("aria-busy", false);
   }
 }
 

@@ -1,17 +1,20 @@
 const form = document.getElementById("registerForm");
 const errorMsg = document.getElementById("errorMsg");
+const signupSubmitButton = document.getElementById("signupSubmitButton");
 
 form.addEventListener("submit", register);
 
 async function register(event) {
   event.preventDefault();
 
+  signupSubmitButton.setAttribute("aria-busy", true);
+
   const username = document.getElementById("usernameInput").value;
   const email = document.getElementById("emailInput").value;
   const password = document.getElementById("passwordInput").value;
   const confirmPassword = document.getElementById("confirmPasswordInput").value;
 
-  console.log({ username, email, password, confirmPassword });
+  // console.log({ username, email, password, confirmPassword });
 
   // checked for empty inputs
   if (!username || !email || !password || !confirmPassword) {
@@ -19,6 +22,7 @@ async function register(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    signupSubmitButton.setAttribute("aria-busy", false);
     return;
   }
 
@@ -29,6 +33,7 @@ async function register(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    signupSubmitButton.setAttribute("aria-busy", false);
     return;
   }
 
@@ -38,6 +43,7 @@ async function register(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    signupSubmitButton.setAttribute("aria-busy", false);
     return;
   }
 
@@ -47,6 +53,8 @@ async function register(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    signupSubmitButton.setAttribute("aria-busy", false);
+    return;
   }
 
   // Interact w/ the users signup API
@@ -79,6 +87,7 @@ async function register(event) {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      signupSubmitButton.setAttribute("aria-busy", false);
       return;
     } else if (response.status === 500) {
       // response is not ok && result.success is false
@@ -86,6 +95,7 @@ async function register(event) {
       errorMsg.style.backgroundColor = "pink";
       errorMsg.style.display = "block";
       errorMsg.style.color = "red";
+      signupSubmitButton.setAttribute("aria-busy", false);
       return;
     }
   } catch (error) {
@@ -94,7 +104,10 @@ async function register(event) {
     errorMsg.style.backgroundColor = "pink";
     errorMsg.style.display = "block";
     errorMsg.style.color = "red";
+    signupSubmitButton.setAttribute("aria-busy", false);
     return;
+  } finally {
+    signupSubmitButton.setAttribute("aria-busy", false);
   }
 }
 
