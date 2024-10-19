@@ -92,10 +92,11 @@ async function initialiseDatabase() {
     const appointmentsTable = `
       CREATE TABLE IF NOT EXISTS appointments (
           appointment_id INT PRIMARY KEY AUTO_INCREMENT,
-          doctor_id INT,
-          patient_id INT,
+          doctor_id INT NOT NULL,
+          patient_id INT NOT NULL,
           description VARCHAR(100) NOT NULL,
           appointment_date DATE NOT NULL,
+          appointment_time TIME NOT NULL,
           appointment_status_id INT NOT NULL DEFAULT 1,
           FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
           FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
@@ -194,7 +195,12 @@ async function initialiseDatabase() {
 }
 
 function pool() {
-  return mysql.createPool({ ...dbConfig });
+  return mysql.createPool({
+    ...dbConfig,
+    waitForConnections: true,
+    connectionLimit: 10, // pool size
+    queueLimit: 0,
+  });
 }
 
 module.exports = { initialiseDatabase, pool };

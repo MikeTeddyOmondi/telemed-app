@@ -4,6 +4,8 @@ const doctorSelect = document.getElementById("doctorId");
 const appointmentSubmitButton = document.getElementById(
   "appointmentSubmitButton"
 );
+const appointmentsTable = document.getElementById("appointments-table");
+let appointments = JSON.parse(localStorage.getItem("appointments")) ?? [];
 
 form.addEventListener("submit", createAppointment);
 
@@ -102,8 +104,49 @@ async function fetchDoctors() {
   }
 }
 
-async function userAppointments() {
+async function fetchUserAppointments() {
   // fetch user appointments
+  // Make a GET request to our API endpoint
+  // http://localhost:3377/api/appointments
+  try {
+    // send GET req
+    const response = await fetch("/api/appointments", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // adds session cookies to the request
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // Populate the appointments table
+      showAppointments(appointmentsTable, result.data);
+      return;
+    } else if (response.status === 400 && response.status === 500) {
+      // response is not ok && result.success is false
+      errorMsg.textContent = result.message;
+      errorMsg.style.backgroundColor = "pink";
+      errorMsg.style.display = "block";
+      errorMsg.style.color = "red";
+      return;
+    } else {
+      // response is not ok && result.success is false
+      errorMsg.textContent = result.message;
+      errorMsg.style.backgroundColor = "pink";
+      errorMsg.style.display = "block";
+      errorMsg.style.color = "red";
+      return;
+    }
+  } catch (error) {
+    // Server error
+    errorMsg.textContent = "Something went wrong!";
+    errorMsg.style.backgroundColor = "pink";
+    errorMsg.style.display = "block";
+    errorMsg.style.color = "red";
+    return;
+  }
 }
 
 async function createAppointment(event) {
@@ -152,10 +195,11 @@ async function createAppointment(event) {
 
     if (response.ok && result.success) {
       errorMsg.textContent = result.message;
-      errorMsg.style.backgroundColor = "lime";
+      errorMsg.style.backgroundColor = "green";
       errorMsg.style.display = "block";
       errorMsg.style.color = "black";
       appointmentSubmitButton.setAttribute("aria-busy", false);
+      form.reset();
       return;
     } else if (response.status === 400 && response.status === 500) {
       // response is not ok && result.success is false
@@ -210,6 +254,26 @@ function populateSelectWithDoctors(doctors) {
   });
 }
 
+// populate table with user appointments
+const showAppointments = (appointmentsTable, appointments) => {
+  appointmentsTable.innerHTML = "";
+  for (let i = 0; i < appointments.length; i++) {
+    appointmentsTable.innerHTML += `
+      <tr>
+      <td>${appointments[i].appointment_id}</td>
+        <td>${appointments[i].doctors_first_name}</td>
+        <td>${new Date(
+          appointments[i].appointment_date
+        ).toLocaleDateString()}</td>
+        <td>${appointments[i].appointment_status}</td>
+        <td><a class="deleteButton" onclick="deleteExpense(${
+          appointments[i].id
+        })">Cancel</td>
+      </tr>
+    `;
+  }
+};
+
 function removeErrorMsg() {
   errorMsg.style.display = "none";
 }
@@ -217,4 +281,5 @@ function removeErrorMsg() {
 (async () => {
   await fetchUserProfile();
   await fetchDoctors();
+  await fetchUserAppointments();
 })();
