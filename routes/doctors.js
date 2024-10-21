@@ -1,15 +1,10 @@
 const doctorsRouter = require("express").Router();
 
 const { pool } = require("../database/init");
+const apiAuth = require("../middlewares/apiAuth");
 
 // get all doctors from database
-doctorsRouter.get("/", async function (req, res) {
-  const { userId } = req.session;
-  console.log({ userId });
-  if (!userId)
-    return res
-      .status(400)
-      .json({ success: false, error: "Session not found!" });
+doctorsRouter.get("/", apiAuth, async function (req, res) {
   try {
     const [doctors] = await pool().query("SELECT * FROM doctors");
 
@@ -33,7 +28,7 @@ doctorsRouter.get("/", async function (req, res) {
 });
 
 // create doctors - promote existing users to doctors
-doctorsRouter.post("/add", async function (req, res) {
+doctorsRouter.post("/add", apiAuth, async function (req, res) {
   // TODO: check for existing user
 });
 

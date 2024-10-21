@@ -79,7 +79,7 @@ async function register(event) {
     const result = await response.json();
 
     if (response.ok && result.success) {
-      window.location.href = "/profile";
+      window.location.href = "/console";
       return;
     } else if (response.status === 400) {
       // response is not ok && result.success is false

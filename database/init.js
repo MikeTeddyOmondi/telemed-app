@@ -98,8 +98,8 @@ async function initialiseDatabase() {
           appointment_date DATE NOT NULL,
           appointment_time TIME NOT NULL,
           appointment_status_id INT NOT NULL DEFAULT 1,
-          FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
-          FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+          FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE,
+          FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id) ON DELETE CASCADE
       );
     `;
     await db.query(appointmentsTable);
@@ -130,8 +130,8 @@ async function initialiseDatabase() {
           blood_pressure_diastollic DECIMAL(5,2),
           pulse DECIMAL(5,2),
           visit_status VARCHAR(50) NOT NULL,
-          FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
-          FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+          FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE,
+          FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id) ON DELETE CASCADE
       )
     `;
     await db.query(visitsTable);
@@ -146,8 +146,8 @@ async function initialiseDatabase() {
           acuity INT NOT NULL,
           reason_for_visit VARCHAR(100) NOT NULL,
           disposition VARCHAR(50) NOT NULL,
-          FOREIGN KEY (visit_id) REFERENCES visits(visit_id),
-          FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+          FOREIGN KEY (visit_id) REFERENCES visits(visit_id) ON DELETE CASCADE,
+          FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE
       )
     `;
     await db.query(edVisitsTable);
@@ -163,7 +163,7 @@ async function initialiseDatabase() {
           discharge_disposition VARCHAR(50) NOT NULL,
           service VARCHAR(50) NOT NULL,
           primary_diagnosis VARCHAR(100) NOT NULL,
-          FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+          FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE
       )
     `;
     await db.query(admissionsTable);
@@ -177,8 +177,8 @@ async function initialiseDatabase() {
           patient_id INT,
           discharge_date DATE NOT NULL,
           discharge_disposition VARCHAR(50) NOT NULL,
-          FOREIGN KEY (admission_id) REFERENCES admissions(admission_id),
-          FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+          FOREIGN KEY (admission_id) REFERENCES admissions(admission_id) ON DELETE CASCADE,
+          FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE
       )
     `;
     await db.query(dischargesTable);

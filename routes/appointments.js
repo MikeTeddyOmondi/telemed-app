@@ -33,9 +33,9 @@ appointmentsRouter.get("/", apiAuth, async function (req, res) {
 
 appointmentsRouter.post("/", apiAuth, async function (req, res) {
   const { userId } = req.session;
-  const { doctorId, appointmentDescription, dateInput } = req.body;
+  const { doctorId, appointmentDescription, dateInput, timeInput } = req.body;
 
-  if (!doctorId || !appointmentDescription || !dateInput)
+  if (!doctorId || !appointmentDescription || !dateInput || !timeInput)
     return res
       .status(400)
       .json({ success: false, error: "Please enter all fields!" });
@@ -83,8 +83,8 @@ appointmentsRouter.post("/", apiAuth, async function (req, res) {
 
     // insert appointment to db
     const [newAppointment] = await pool().query(
-      "INSERT INTO appointments (doctor_id, patient_id, description, appointment_date) VALUES (?, ?, ?, ?)",
-      [doctorId, userId, appointmentDescription, dateInput]
+      "INSERT INTO appointments (doctor_id, patient_id, description, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?)",
+      [doctorId, userId, appointmentDescription, dateInput, timeInput]
     );
 
     return res.status(201).json({

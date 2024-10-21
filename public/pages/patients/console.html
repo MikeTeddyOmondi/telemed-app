@@ -54,29 +54,47 @@
       </nav>
     </header>
     <main class="container">
-      <h1>Profile</h1>
+      <h1>Patient Dashboard</h1>
 
       <section id="modal">
+        <!-- <h2>Modal</h2> -->
         <button
           class="contrast"
           data-target="modal-example"
           onclick="toggleModal(event)"
         >
           <img
-            src="assets/edit.svg"
-            alt="edit-profile"
+            src="assets/appointments.svg"
+            alt="new-appointment"
             width="18px"
             height="18px"
           />
-          Edit Profile
+          New Appointment
         </button>
       </section>
 
-      <article id="profileCard" aria-busy="false">Profile details</article>
+      <!-- Appointments Table -->
+      <section id="tables">
+        <h2>Appointments</h2>
+        <div class="overflow-auto">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th scope="col">Appointment ID</th>
+                <th scope="col">Doctor's Name</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Appointment Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appointments-table"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
     <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
 
-    <!-- Edit profile form | Modal -->
+    <!-- Appointments form | Modal -->
     <dialog id="modal-example">
       <article>
         <header>
@@ -86,7 +104,7 @@
             data-target="modal-example"
             onclick="toggleModal(event)"
           ></button>
-          <h3>Edit Profile</h3>
+          <h3>Create Appointment</h3>
         </header>
         <section>
           <form id="appointmentForm">
@@ -96,20 +114,45 @@
             ></article>
             <fieldset>
               <label>
-                Username
+                Doctor Name
+                <select
+                  id="doctorId"
+                  name="doctorId"
+                  aria-label="Select your care doctor..."
+                  onfocus="removeErrorMsg()"
+                  required
+                ></select>
+              </label>
+              <label>
+                Description
                 <input
-                  id="usernameInput"
+                  id="descriptionInput"
                   type="text"
-                  name="usernameInput"
-                  placeholder="New username"
-                  autocomplete="usernameInput"
+                  name="appointmentDescription"
+                  placeholder="Appointment Description"
+                  autocomplete="password"
                   onfocus="removeErrorMsg()"
                 />
+              </label>
+              <label>
+                Date
+                <input
+                  id="dateInput"
+                  type="date"
+                  name="appointmentDate"
+                  placeholder="Appointment Description"
+                  autocomplete="password"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label for="time">
+                Time
+                <input id="timeInput" type="time" name="appointmentTime" />
               </label>
             </fieldset>
 
             <button
-              id="editProfileSubmitButton"
+              id="appointmentSubmitButton"
               type="submit"
               aria-busy="false"
             >
@@ -117,12 +160,28 @@
             </button>
           </form>
         </section>
-        <footer></footer>
+        <footer>
+          <!-- <button
+            role="button"
+            class="secondary"
+            data-target="modal-example"
+            onclick="toggleModal(event)"
+          >
+            Cancel</button
+          > -->
+          <!-- <button
+            autofocus
+            data-target="modal-example"
+            onclick="toggleModal(event)"
+          >
+            Confirm
+          </button> -->
+        </footer>
       </article>
     </dialog>
 
     <script src="js/theme-toggle.js"></script>
-    <script src="js/profile.js"></script>
+    <script src="js/console.js"></script>
     <script src="js/script.js"></script>
     <script src="js/modal.js"></script>
   </body>

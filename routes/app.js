@@ -20,13 +20,28 @@ appRouter.get("/signup", (req, res) => {
     .sendFile(path.join(__dirname, "..", "public", "register.html"));
 });
 
-// check is user has authenticated
+appRouter.get("/console", checkAuth, (req, res) => {
+  return res
+    .status(200)
+    .sendFile(
+      path.join(__dirname, "..", "public", "pages", "patients", "console.html")
+    );
+});
+
 appRouter.get("/profile", checkAuth, (req, res) => {
   return res
     .status(200)
-    .sendFile(path.join(__dirname, "..", "public", "pages", "patients", "profile.html"));
+    .sendFile(
+      path.join(__dirname, "..", "public", "pages", "patients", "profile.html")
+    );
+});
+
+appRouter.get("/settings", checkAuth, (req, res) => {
+  return res
+    .status(200)
+    .sendFile(
+      path.join(__dirname, "..", "public", "pages", "patients", "settings.html")
+    );
 });
 
 module.exports = appRouter;
-
-// https://www.brooker.co.za/blog/2023/03/23/economics.html
