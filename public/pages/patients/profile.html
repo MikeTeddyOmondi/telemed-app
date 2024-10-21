@@ -9,6 +9,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+    <style>
+      #modal {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+    </style>
   </head>
   <body>
     <header class="container">
@@ -54,9 +62,8 @@
       </nav>
     </header>
     <main class="container">
-      <h1>Profile</h1>
-
       <section id="modal">
+        <h1>Profile</h1>
         <button
           class="contrast"
           data-target="modal-example"

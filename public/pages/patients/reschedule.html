@@ -1,0 +1,131 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeleMed App</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li>
+            <a href="/console">
+              <img
+                src="assets/monitor_heart.svg"
+                alt="new-appointment"
+                width="48px"
+                height="48px"
+              />
+              <strong>TeleMed App</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/console" class="primary">Dashboard</a>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Account</summary>
+              <ul dir="rtl">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <h1>Reschedule Appointment</h1>
+
+      <!-- Reschedule Appointments Form -->
+      <section>
+        <form id="rescheduleAppointmentForm">
+          <article
+            id="editErrorMsg"
+            style="display: none; margin: inherit"
+          ></article>
+          <fieldset>
+            <label>
+              Appointment ID
+              <input
+                id="appointmentId"
+                type="text"
+                name="appointmentId"
+                disabled
+              />
+            </label>
+            <label>
+              Doctor Name
+              <select
+                id="editDoctorId"
+                name="doctorId"
+                aria-label="Select your care doctor..."
+                onfocus="removeErrorMsg()"
+                disabled
+              ></select>
+            </label>
+            <label>
+              Description
+              <input
+                id="editDescriptionInput"
+                type="text"
+                name="appointmentDescription"
+                placeholder="Appointment Description"
+                autocomplete="password"
+                onfocus="removeErrorMsg()"
+              />
+            </label>
+            <label>
+              Date
+              <input
+                id="editDateInput"
+                type="date"
+                name="appointmentDate"
+                autocomplete="appointment-date"
+                onfocus="removeErrorMsg()"
+              />
+            </label>
+            <label for="time">
+              Time
+              <input id="editTimeInput" type="time" name="appointmentTime" />
+            </label>
+          </fieldset>
+
+          <button
+            id="editAppointmentSubmitButton"
+            type="submit"
+            class="contrast"
+            aria-busy="false"
+          >
+            Save
+          </button>
+        </form>
+      </section>
+    </main>
+    <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/reschedule.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/modal.js"></script>
+  </body>
+</html>

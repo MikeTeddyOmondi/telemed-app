@@ -9,6 +9,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+    <style>
+      #modal {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+    </style>
   </head>
   <body>
     <header class="container">
@@ -54,13 +62,11 @@
       </nav>
     </header>
     <main class="container">
-      <h1>Patient Dashboard</h1>
-
       <section id="modal">
-        <!-- <h2>Modal</h2> -->
+        <h1>Patient Dashboard</h1>
         <button
           class="contrast"
-          data-target="modal-example"
+          data-target="create-appointment"
           onclick="toggleModal(event)"
         >
           <img
@@ -73,6 +79,8 @@
         </button>
       </section>
 
+      <article id="spanMsg" style="display: none; margin: inherit"></article>
+
       <!-- Appointments Table -->
       <section id="tables">
         <h2>Appointments</h2>
@@ -83,6 +91,7 @@
                 <th scope="col">Appointment ID</th>
                 <th scope="col">Doctor's Name</th>
                 <th scope="col">Appointment Date</th>
+                <th scope="col">Appointment Time</th>
                 <th scope="col">Appointment Status</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -94,14 +103,14 @@
     </main>
     <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
 
-    <!-- Appointments form | Modal -->
-    <dialog id="modal-example">
+    <!-- Create Appointments Form | Modal -->
+    <dialog id="create-appointment">
       <article>
         <header>
           <button
             aria-label="Close"
             rel="prev"
-            data-target="modal-example"
+            data-target="create-appointment"
             onclick="toggleModal(event)"
           ></button>
           <h3>Create Appointment</h3>
@@ -160,23 +169,7 @@
             </button>
           </form>
         </section>
-        <footer>
-          <!-- <button
-            role="button"
-            class="secondary"
-            data-target="modal-example"
-            onclick="toggleModal(event)"
-          >
-            Cancel</button
-          > -->
-          <!-- <button
-            autofocus
-            data-target="modal-example"
-            onclick="toggleModal(event)"
-          >
-            Confirm
-          </button> -->
-        </footer>
+        <footer></footer>
       </article>
     </dialog>
 

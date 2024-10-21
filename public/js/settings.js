@@ -1,3 +1,4 @@
+const errorMsg = document.getElementById("errorMsg");
 const form = document.getElementById("deleteUserProfileForm");
 
 form.addEventListener("submit", deleteUserProfile);

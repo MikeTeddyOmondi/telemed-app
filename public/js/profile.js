@@ -1,4 +1,5 @@
 let profileData = {};
+const errorMsg = document.getElementById("errorMsg");
 const form = document.getElementById("appointmentForm");
 const profileCard = document.getElementById("profileCard");
 const editProfileSubmitButton = document.getElementById(

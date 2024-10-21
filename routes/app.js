@@ -36,6 +36,21 @@ appRouter.get("/profile", checkAuth, (req, res) => {
     );
 });
 
+appRouter.get("/reschedule", checkAuth, (req, res) => {
+  return res
+    .status(200)
+    .sendFile(
+      path.join(
+        __dirname,
+        "..",
+        "public",
+        "pages",
+        "patients",
+        "reschedule.html"
+      )
+    );
+});
+
 appRouter.get("/settings", checkAuth, (req, res) => {
   return res
     .status(200)
