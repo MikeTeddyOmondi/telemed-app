@@ -11,12 +11,9 @@ let appointments = JSON.parse(localStorage.getItem("appointments")) ?? [];
 form.addEventListener("submit", createAppointment);
 
 async function fetchDoctors() {
-  // fetch doctors
-  // Make a GET request to our API endpoint
-  // http://localhost:3377/api/doctors
   try {
-    // send GET req
-    const response = await fetch("/api/doctors", {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/${accountId}/doctors`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -57,11 +54,9 @@ async function fetchDoctors() {
 }
 
 async function fetchUserAppointments() {
-  // fetch user appointments
-  // http://localhost:3377/api/appointments
   try {
-    // send GET req
-    const response = await fetch("/api/appointments", {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/${accountId}/appointments`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -130,13 +125,11 @@ async function createAppointment(event) {
     dateInput,
     timeInput,
   };
-  console.log({ formData });
+  // console.log({ formData });
 
-  // Make a GET request to our API endpoint
-  // http://localhost:3377/api/appointments/
   try {
-    // send POST req
-    const response = await fetch("/api/appointments", {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/${accountId}/appointments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -194,9 +187,8 @@ async function createAppointment(event) {
 
 async function cancelAppointment(appointmentId) {
   try {
-    // send PUT req
-    // http://localhost:3377/api/appointments/:appointmentId
-    const response = await fetch(`/api/appointments/${appointmentId}/cancel`, {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/${accountId}/appointments/${appointmentId}/cancel`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -284,11 +276,11 @@ const showAppointments = (appointmentsTable, appointments) => {
         <td>         
           <a class="editButton" onclick="goTo('/reschedule?appointmentId=${
             appointments[i].appointment_id
-          }')"><img src="assets/edit.svg" alt="reschedule-appointment" />
+          }')"><img src="/static/assets/edit.svg" alt="reschedule-appointment" />
           </a>          
           <a class="deleteButton" onclick="cancelAppointment(${
             appointments[i].appointment_id
-          })"><img src="assets/delete.svg" alt="cancel-appointment" />
+          })"><img src="/static/assets/delete.svg" alt="cancel-appointment" />
           </a>
         </td>
       </tr>

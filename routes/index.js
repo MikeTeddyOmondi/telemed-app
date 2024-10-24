@@ -6,10 +6,12 @@ const doctorsRouter = require("./doctors");
 const patientsRouter = require("./patients");
 const appointmentsRouter = require("./appointments");
 
+const apiAuth = require("../middlewares/apiAuth");
+
 router.use("/", appRouter) // frontend routes
 router.use("/api/users", usersRouter); // managing users
-router.use("/api/doctors", doctorsRouter); // managing doctors
-router.use("/api/patients", patientsRouter); // patients routes
-router.use("/api/appointments", appointmentsRouter); // managing appointments
+router.use("/api/:account_id/doctors", apiAuth, doctorsRouter); // managing doctors
+router.use("/api/:account_id/patients", patientsRouter); // patients routes
+router.use("/api/:account_id/appointments", apiAuth, appointmentsRouter); // managing appointments
 
 module.exports = router;

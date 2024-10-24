@@ -1,26 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Doctors - Appointments Calendar</title>
-    <link rel="stylesheet" href="app.css" />
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <button class="navigation" onclick="previousMonth()">&lt;</button>
+    <link rel="stylesheet" href="/static/css/appointments.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li>
+            <a href="/console">
+              <img
+                src="/static/assets/monitor_heart.svg"
+                alt="new-appointment"
+                width="48px"
+                height="48px"
+              />
+              <strong>TeleMed App</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/console" class="primary">Dashboard</a>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Account</summary>
+              <ul dir="rtl">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <section id="tables">
+        <h2>Doctor's Appointments</h2>
+
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <button
+              class="calendar-button navigation contrast outline"
+              onclick="previousMonth()"
+            >
+              &lt;
+            </button>
             <h1 id="month"></h1>
-            <button class="navigation" onclick="nextMonth()">&gt;</button>
+            <button class="calendar-button navigation contrast outline" onclick="nextMonth()">
+              &gt;
+            </button>
+          </div>
+          <div class="overflow-auto">
+            <div id="calendar"></div>
+          </div>
         </div>
-        <div id="calendar">
-            
-        </div>
-    </div>
-    <script src="app.js"></script>
-</body>
+      </section>
+    </main>
+    <script src="/static/js/theme-toggle.js"></script>
+    <script src="/static/js/appointments.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/modal.js"></script>
+  </body>
 </html>
-
-
-        

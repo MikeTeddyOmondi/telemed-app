@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 
 // Enforce row-level security and RBAC for resources | middleware
-const apiAuth = (req, res, next) => {
+const docAuth = (req, res, next) => {
   // Check if JWT exists in the session
   if (!req.session.accessToken) {
     return res.status(401).json({ success: false, message: "Unauthenticated" });
@@ -27,13 +27,8 @@ const apiAuth = (req, res, next) => {
       return next();
     }
 
-    if (req.userInfo.roleId === 2) {
-      // Doctor access
-      return next();
-    }
-
-    if (req.userInfo.roleId === 3 && req.userInfo.userId === Number(account_id)) {
-      // Patient access to their own records
+    if (req.userInfo.roleId === 2 && req.userInfo.userId == account_id) {
+      // Doctor access to their own records
       return next();
     }
 
@@ -41,4 +36,4 @@ const apiAuth = (req, res, next) => {
   });
 };
 
-module.exports = apiAuth;
+module.exports = docAuth;

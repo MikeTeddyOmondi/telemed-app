@@ -21,5 +21,6 @@ async function logout() {
 }
 
 function goTo(path) {
-  window.location.href = path;
+  // const accountId = localStorage.getItem("accountId");
+  window.location.href = `${path}`;
 }

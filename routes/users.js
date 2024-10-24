@@ -1,8 +1,10 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const usersRouter = require("express").Router();
 
 const { pool } = require("../database/init");
 const apiAuth = require("../middlewares/apiAuth");
+const { JWT_SECRET } = require("../config");
 
 // Login
 usersRouter.post("/login", async function (req, res) {
@@ -16,19 +18,36 @@ usersRouter.post("/login", async function (req, res) {
       email,
     ]);
     const userFound = rows[0];
-    const isPasswordValid = await bcrypt.compare(password, userFound.password);
-
     if (rows.length > 0) {
+      const isPasswordValid = await bcrypt.compare(
+        password,
+        userFound.password
+      );
       if (!isPasswordValid) {
         return res
           .status(400)
           .json({ success: false, message: "Invalid credentials!" });
       }
+
       // set session
-      req.session.userId = rows[0].user_id;
-      return res
-        .status(200)
-        .json({ success: true, message: "Login successful!" });
+      // Create the payload for the JWT
+      const payload = {
+        userId: userFound.user_id,
+        roleId: userFound.role_id,
+      };
+
+      // Sign the JWT
+      const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+
+      // Store the JWT in the session
+      // req.session.userId = rows[0].user_id;
+      req.session.accessToken = token;
+
+      return res.status(200).json({
+        success: true,
+        message: "Login successful!",
+        data: { accountId: userFound.user_id },
+      });
     } else {
       return res
         .status(400)
@@ -70,10 +89,31 @@ usersRouter.post("/signup", async function (req, res) {
       "INSERT INTO patients (patient_id) VALUES (?)",
       [userResult.insertId]
     );
-    req.session.userId = userResult.insertId;
-    return res
-      .status(200)
-      .json({ success: true, message: "Signup successful!" });
+
+    const [newUser] = await pool().query(
+      "SELECT * FROM users WHERE user_id = ?",
+      [userResult.insertId]
+    );
+
+    // set session
+    // Create the payload for the JWT
+    const payload = {
+      userId: newUser.user_id,
+      roleId: newUser.role_id,
+    };
+
+    // Sign the JWT
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+
+    // Store the JWT in the session
+    // req.session.userId = userResult.insertId;
+    req.session.accessToken = token;
+
+    return res.status(200).json({
+      success: true,
+      message: "Signup successful!",
+      data: { accountId: newUser.user_id },
+    });
   } catch (err) {
     console.log({ err });
     console.log({ registration_error: err.message });
@@ -84,8 +124,8 @@ usersRouter.post("/signup", async function (req, res) {
 });
 
 // GET Profile
-usersRouter.get("/profile", apiAuth, async function (req, res) {
-  const { userId } = req.session;
+usersRouter.get("/:account_id/profile", apiAuth, async function (req, res) {
+  const { userId } = req.userInfo;
 
   try {
     const [rows] = await pool().query("SELECT * FROM users WHERE user_id = ?", [
@@ -114,9 +154,10 @@ usersRouter.get("/profile", apiAuth, async function (req, res) {
 });
 
 // PUT Profile
-usersRouter.put("/profile", apiAuth, async function (req, res) {
-  const { userId } = req.session;
-  const { newUsername } = req.body;
+usersRouter.put("/:account_id/profile", apiAuth, async function (req, res) {
+  const { userId } = req.userInfo;
+  const { newUsername, firstName, lastName, date_of_birth, gender, language } =
+    req.body;
 
   try {
     const [rows] = await pool().query("SELECT * FROM users WHERE user_id = ?", [
@@ -124,10 +165,24 @@ usersRouter.put("/profile", apiAuth, async function (req, res) {
     ]);
 
     if (rows.length > 0) {
-      const [updatedRows] = await pool().query(
+      // update user details record
+      const [updatedUserDetails] = await pool().query(
         "UPDATE users SET username = ? WHERE user_id = ?;",
         [newUsername, userId]
       );
+
+      // update patient details record
+      const [updatedPatientDetails] = await pool().query(
+        `UPDATE patients 
+          SET first_name = ?, 
+              last_name = ?, 
+              date_of_birth = ?,
+              gender = ?, 
+              language = ? 
+        WHERE patient_id = ?;`,
+        [firstName, lastName, date_of_birth, gender, language, userId]
+      );
+
       return res.status(200).json({
         success: true,
         message: "User profile updated!",
@@ -146,8 +201,8 @@ usersRouter.put("/profile", apiAuth, async function (req, res) {
 });
 
 // DELETE Profile
-usersRouter.delete("/profile", apiAuth, async function (req, res) {
-  const { userId } = req.session;
+usersRouter.delete("/:account_id/profile", apiAuth, async function (req, res) {
+  const { userId } = req.userInfo;
 
   try {
     const [rows] = await pool().query("SELECT * FROM users WHERE user_id = ?", [

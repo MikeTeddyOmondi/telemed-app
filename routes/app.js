@@ -59,4 +59,12 @@ appRouter.get("/settings", checkAuth, (req, res) => {
     );
 });
 
+appRouter.get("/appointments", checkAuth, (req, res) => {
+  return res
+    .status(200)
+    .sendFile(
+      path.join(__dirname, "..", "public", "pages", "doctors", "appointments.html")
+    );
+});
+
 module.exports = appRouter;

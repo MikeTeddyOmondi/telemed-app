@@ -2,9 +2,10 @@ const doctorsRouter = require("express").Router();
 
 const { pool } = require("../database/init");
 const apiAuth = require("../middlewares/apiAuth");
+const docAuth = require("../middlewares/docAuth");
 
 // get all doctors from database
-doctorsRouter.get("/", apiAuth, async function (req, res) {
+doctorsRouter.get("/", async function (req, res) {
   try {
     const [doctors] = await pool().query("SELECT * FROM doctors");
 
@@ -28,7 +29,7 @@ doctorsRouter.get("/", apiAuth, async function (req, res) {
 });
 
 // create doctors - promote existing users to doctors
-doctorsRouter.post("/add", apiAuth, async function (req, res) {
+doctorsRouter.post("/add", docAuth, async function (req, res) {
   // TODO: check for existing user
 });
 

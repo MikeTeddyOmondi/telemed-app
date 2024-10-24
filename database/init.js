@@ -51,18 +51,10 @@ async function initialiseDatabase() {
     await db.query(usersTable);
     // console.log("Users table created or already exists");
 
-    // const alterTable = `
-    //   ALTER TABLE users
-    //   ADD CONSTRAINT fkk_role
-    //   FOREIGN KEY (role_id) REFERENCES roles(role_id);
-    // `;
-    // await db.query(alterTable);
-    //console.log("Altered users table");
-
     // Create the 'patients' table
     const patientsTable = `
       CREATE TABLE IF NOT EXISTS patients (
-          patient_id INT PRIMARY KEY,
+          patient_id INT PRIMARY KEY REFERENCES users(user_id) ON DELETE CASCADE,
           first_name VARCHAR(50),
           last_name VARCHAR(50),
           date_of_birth DATE,

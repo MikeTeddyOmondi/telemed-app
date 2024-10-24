@@ -16,26 +16,22 @@ const months = [
 ];
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const STORYBLOK_URL =
-  "https://api-us.storyblok.com/v2/cdn/stories?starts_with=events&token=<PUBLIC_API_KEY>";
 let events;
 const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
 const loadEvents = async () => {
-  const res = await fetch(STORYBLOK_URL);
-  const { stories } = await res.json();
-  events = stories.reduce((accumulator, event) => {
-    const eventTime = new Date(event.content.time);
-    const eventDate = new Date(eventTime.toDateString());
-    accumulator[eventDate] = event.content;
-    return accumulator;
-  }, {});
+  // const res = await fetch(STORYBLOK_URL);
+  // const { stories } = await res.json();
+  // events = stories.reduce((accumulator, event) => {
+  //   const eventTime = new Date(event.content.time);
+  //   const eventDate = new Date(eventTime.toDateString());
+  //   accumulator[eventDate] = event.content;
+  //   return accumulator;
+  // }, {});
   updateCalendar(currentMonth, currentYear, events);
 };
-
-loadEvents();
 
 const drawBlankCalendar = () => {
   for (let i = 0; i < 35; i++) {
@@ -61,6 +57,7 @@ const drawBlankCalendar = () => {
 };
 
 const updateCalendar = (month, year, events) => {
+  console.log({ month, year, today });
   const dayElements = document.querySelectorAll(".day");
 
   const theFirst = new Date();
@@ -117,7 +114,7 @@ const nextMonth = () => {
 const load = async () => {
   drawBlankCalendar();
   updateCalendar(currentMonth, currentYear, {});
-  await loadEvents();
+  // await loadEvents();
 };
 
 load();

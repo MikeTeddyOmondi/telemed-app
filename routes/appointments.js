@@ -3,8 +3,8 @@ const appointmentsRouter = require("express").Router();
 const { pool } = require("../database/init");
 const apiAuth = require("../middlewares/apiAuth");
 
-appointmentsRouter.get("/", apiAuth, async function (req, res) {
-  const { userId } = req.session;
+appointmentsRouter.get("/", async function (req, res) {
+  const { userId } = req.userInfo;
   try {
     const [appointmentsFound] = await pool().query(
       `SELECT 
@@ -36,8 +36,8 @@ appointmentsRouter.get("/", apiAuth, async function (req, res) {
   }
 });
 
-appointmentsRouter.get("/:appointmentId", apiAuth, async function (req, res) {
-  const { userId } = req.session;
+appointmentsRouter.get("/:appointmentId", async function (req, res) {
+  const { userId } = req.userInfo;
   const { appointmentId } = req.params;
   try {
     const [appointmentFound] = await pool().query(
@@ -71,8 +71,8 @@ appointmentsRouter.get("/:appointmentId", apiAuth, async function (req, res) {
   }
 });
 
-appointmentsRouter.post("/", apiAuth, async function (req, res) {
-  const { userId } = req.session;
+appointmentsRouter.post("/", async function (req, res) {
+  const { userId } = req.userInfo;
   const { doctorId, appointmentDescription, dateInput, timeInput } = req.body;
 
   if (!doctorId || !appointmentDescription || !dateInput || !timeInput)
@@ -139,8 +139,8 @@ appointmentsRouter.post("/", apiAuth, async function (req, res) {
   }
 });
 
-appointmentsRouter.put("/:appointmentId", apiAuth, async function (req, res) {
-  // const { userId } = req.session;
+appointmentsRouter.put("/:appointmentId", async function (req, res) {
+  // const { userId } = req.userInfo;
   const { appointmentId } = req.params;
   const { doctorId, appointmentDescription, dateInput, timeInput } = req.body;
 

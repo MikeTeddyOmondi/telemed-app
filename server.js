@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session");
 const path = require("node:path");
+const morgan = require("morgan");
 
 const {
   PORT,
@@ -20,8 +21,8 @@ const app = express();
 
 // Serve our static files: html, css & js
 NODE_ENV === "production"
-  ? app.use(express.static(path.join(__dirname, "public"), { maxAge: "1h" })) // cache assets
-  : app.use(express.static(path.join(__dirname, "public")));
+  ? app.use("/static/", express.static(path.join(__dirname, "public"), { maxAge: "1h" })) // cache assets
+  : app.use("/static/", express.static(path.join(__dirname, "public")));
 
 // Sessions
 const sessionStoreOpts = {
@@ -60,6 +61,7 @@ app.use(
     },
   })
 );
+app.use(morgan("dev"))
 
 app.use("/", router);
 

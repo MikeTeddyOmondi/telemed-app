@@ -10,10 +10,9 @@ form.addEventListener("submit", editUserProfile);
 
 async function fetchUserProfile() {
   profileCard.setAttribute("aria-busy", true);
-  // Make a GET request to our API endpoint
-  // http://localhost:3377/api/user/profile
   try {
-    const response = await fetch("/api/users/profile", {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/users/${accountId}/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -79,9 +78,8 @@ async function editUserProfile(event) {
   };
 
   try {
-    // send PUT req
-    // http://localhost:3377/api/users/profile
-    const response = await fetch("/api/users/profile", {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/users/${accountId}/profile`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

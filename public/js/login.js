@@ -44,7 +44,8 @@ async function login(event) {
     const result = await response.json();
 
     if (response.ok && result.success) {
-      window.location.href = "/console";
+      localStorage.setItem("accountId", result.data.accountId);
+      window.location.href = `/console`;
       return;
     } else if (response.status === 400) {
       // response is not ok && result.success is false
