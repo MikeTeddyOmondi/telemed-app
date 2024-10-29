@@ -65,7 +65,7 @@ npm run start
 
 - [ ] **Doctor Management**
 
-  - [ * ] **Creating (admins only)** new doctors, including their schedules.
+  - [*] **Creating (admins only)** new doctors, including their schedules.
   - [ ] **Read** Display a list of doctors with their specialization and availability.
   - [ ] **Update:** Allow doctors or admin to update schedules or profile information.
   - [ ] **Delete:** Implement a feature to deactivate or delete doctor profiles.
