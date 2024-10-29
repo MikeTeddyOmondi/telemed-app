@@ -6,9 +6,8 @@ form.addEventListener("submit", deleteUserProfile);
 async function deleteUserProfile(event) {
   event.preventDefault();
   try {
-    // send DELETE req
-    // http://localhost:3377/api/user/profile
-    const response = await fetch("/api/users/profile", {
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(`/api/users/${accountId}/profile`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

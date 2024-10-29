@@ -1,0 +1,9 @@
+/node_modules
+/.git
+/database/data/mysql
+
+.env
+.env.sample
+.gitignore
+compose.yml
+Justfile

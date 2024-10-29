@@ -22,10 +22,6 @@ async function login(event) {
     return;
   }
 
-  console.log({ email, password });
-
-  // Make a POST request to our API endpoint
-  // http://localhost:3377/api/user/login
   try {
     const data = {
       email,
@@ -41,12 +37,38 @@ async function login(event) {
       body: JSON.stringify(data),
     });
 
-    const result = await response.json();
+    const loginResult = await response.json();
 
-    if (response.ok && result.success) {
-      localStorage.setItem("accountId", result.data.accountId);
-      window.location.href = `/console`;
-      return;
+    if (response.ok && loginResult.success) {
+      localStorage.setItem("accountId", loginResult.data.accountId);
+      // check for RBAC access to redirect to doctor's or admin console
+      try {
+        // check user profile
+        const response = await fetch(
+          `/api/users/${loginResult.data.accountId}/profile`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const { data: profile } = await response.json();
+
+        if (profile.role === "admin") {
+          window.location.href = `/admin-console`;
+          return;
+        } else if (profile.role === "doctor") {
+          window.location.href = `/appointments`;
+          return;
+        } else {
+          window.location.href = `/console`;
+          return;
+        }
+      } catch (error) {
+        console.error({ login_error: error });
+        throw new Error(error.message);
+      }
     } else if (response.status === 400) {
       // response is not ok && result.success is false
       errorMsg.textContent = result.message;

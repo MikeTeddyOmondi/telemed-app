@@ -10,14 +10,17 @@ rescheduleForm.addEventListener("submit", rescheduleAppointment);
 async function fetchCurrentAppointment() {
   const appointmentId = getQueryParam("appointmentId");
   try {
-    // fetch appointment
-    const response = await fetch(`/api/appointments/${appointmentId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // adds session cookies to the request
-    });
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(
+      `/api/${accountId}/appointments/${appointmentId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // adds session cookies to the request
+      }
+    );
 
     const result = await response.json();
 
@@ -82,16 +85,18 @@ async function rescheduleAppointment(event) {
   console.log({ formData });
 
   try {
-    // send PUT req
-    // http://localhost:3377/api/appointments/:appointmentId
-    const response = await fetch(`/api/appointments/${appointmentId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
+    const accountId = localStorage.getItem("accountId");
+    const response = await fetch(
+      `/api/${accountId}/appointments/${appointmentId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
 
     const result = await response.json();
 

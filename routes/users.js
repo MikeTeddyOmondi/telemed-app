@@ -98,8 +98,8 @@ usersRouter.post("/signup", async function (req, res) {
     // set session
     // Create the payload for the JWT
     const payload = {
-      userId: newUser.user_id,
-      roleId: newUser.role_id,
+      userId: newUser[0].user_id,
+      roleId: newUser[0].role_id,
     };
 
     // Sign the JWT
@@ -112,7 +112,7 @@ usersRouter.post("/signup", async function (req, res) {
     return res.status(200).json({
       success: true,
       message: "Signup successful!",
-      data: { accountId: newUser.user_id },
+      data: { accountId: newUser[0].user_id },
     });
   } catch (err) {
     console.log({ err });
@@ -128,13 +128,17 @@ usersRouter.get("/:account_id/profile", apiAuth, async function (req, res) {
   const { userId } = req.userInfo;
 
   try {
-    const [rows] = await pool().query("SELECT * FROM users WHERE user_id = ?", [
-      userId,
-    ]);
+    const [rows] = await pool().query(
+      `SELECT user_id, u.role_id, email, username, role 
+        FROM users as u
+        LEFT JOIN roles
+        ON roles.role_id = u.role_id
+        WHERE user_id = ?`,
+      [userId]
+    );
 
     if (rows.length > 0) {
-      const userFound = rows[0];
-      const { password, ...profileData } = userFound;
+      const profileData = rows[0];
       return res.status(200).json({
         success: true,
         message: "User profile found!",
@@ -214,7 +218,6 @@ usersRouter.delete("/:account_id/profile", apiAuth, async function (req, res) {
         "DELETE FROM users WHERE user_id = ?;",
         [userId]
       );
-      console.log({ deletedRows });
 
       req.session.destroy((err) => {
         if (err) {

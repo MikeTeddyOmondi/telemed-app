@@ -38,10 +38,6 @@
           <li>
             <a href="/console" class="primary">Dashboard</a>
           </li>
-          |
-          <li>
-            <a href="/admin-console" class="primary">Admin Console</a>
-          </li>
           <li>
             <details class="dropdown">
               <summary>Account</summary>
@@ -67,20 +63,35 @@
     </header>
     <main class="container">
       <section id="modal">
-        <h1>Patient Dashboard</h1>
-        <button
-          class="contrast"
-          data-target="create-appointment"
-          onclick="toggleModal(event)"
-        >
-          <img
-            src="/static/assets/appointments.svg"
-            alt="new-appointment"
-            width="18px"
-            height="18px"
-          />
-          New Appointment
-        </button>
+        <h1>Admin Dashboard</h1>
+        <div>
+          <button
+            class="contrast"
+            data-target="create-appointment"
+            onclick="toggleModal(event)"
+          >
+            <img
+              src="/static/assets/appointments.svg"
+              alt="new-appointment"
+              width="18px"
+              height="18px"
+            />
+            New Doctor
+          </button>
+          <button
+            class="contrast"
+            data-target="create-appointment"
+            onclick="toggleModal(event)"
+          >
+            <img
+              src="/static/assets/appointments.svg"
+              alt="new-appointment"
+              width="18px"
+              height="18px"
+            />
+            New Appointment
+          </button>
+        </div>
       </section>
 
       <article id="spanMsg" style="display: none; margin: inherit"></article>

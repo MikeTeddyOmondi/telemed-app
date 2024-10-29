@@ -14,14 +14,18 @@ const {
   DB_NAME,
   NODE_ENV,
 } = require("./config");
-const router = require("./routes");
+const routes = require("./routes");
 const { initialiseDatabase, pool } = require("./database/init");
+const { web404Handler, webErrorHandler } = require("./middlewares/errorHandlers");
 
 const app = express();
 
 // Serve our static files: html, css & js
 NODE_ENV === "production"
-  ? app.use("/static/", express.static(path.join(__dirname, "public"), { maxAge: "1h" })) // cache assets
+  ? app.use(
+      "/static/",
+      express.static(path.join(__dirname, "public"), { maxAge: "1h" })
+    ) // cache assets
   : app.use("/static/", express.static(path.join(__dirname, "public")));
 
 // Sessions
@@ -61,14 +65,15 @@ app.use(
     },
   })
 );
-app.use(morgan("dev"))
+// Tracing
+NODE_ENV === "production" ? app.use(morgan("common")) : app.use(morgan("dev"));
 
-app.use("/", router);
+// Mount All Routes
+app.use('/', routes);
 
-// Catch errors
-app.use((req, res) => {
-  return res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
-});
+// UI-specific error handling
+app.use(web404Handler);
+app.use(webErrorHandler);
 
 (async function () {
   try {
