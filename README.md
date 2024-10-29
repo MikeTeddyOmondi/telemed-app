@@ -48,35 +48,35 @@ npm run start
 
 ## Core Features Implementation
 
-- [ * ] **User Management and Authentication**
+- [x] **User Management and Authentication**
 
-  - [ * ] **Registration of users** by default all users are patients upon registration
-  - [ * ] **Login of users**
-  - [ * ] **User profile management**
+  - [x] **Registration of users** by default all users are patients upon registration
+  - [x] **Login of users**
+  - [x] **User profile management**
 
-- [ * ] **Session Management**
+- [x] **Session Management**
 
-- [ * ] **Patient Management**
+- [x] **Patient Management**
 
-  - [ * ] **Creating** patients through registrations and creating an account.
-  - [ * ] **Read patients(admin only)** with search and filter options.
-  - [ * ] **Update profile** Patients can update their profile information.
-  - [ * ] **Delete account:** Implement a feature for patients to delete their accounts.
+  - [x] **Creating** patients through registrations and creating an account.
+  - [x] **Read patients(admin only)** with search and filter options.
+  - [x] **Update profile** Patients can update their profile information.
+  - [x] **Delete account:** Implement a feature for patients to delete their accounts.
 
 - [ ] **Doctor Management**
 
-  - [*] **Creating (admins only)** new doctors, including their schedules.
+  - [x] **Creating (admins only)** new doctors, including their schedules.
   - [ ] **Read** Display a list of doctors with their specialization and availability.
   - [ ] **Update:** Allow doctors or admin to update schedules or profile information.
   - [ ] **Delete:** Implement a feature to deactivate or delete doctor profiles.
 
 - [ ] **Appointment Booking:**
 
-  - [ * ] **Create appointments (patients)** Patients can book an appointment by selecting a doctor, date, and time.
+  - [x] **Create appointments (patients)** Patients can book an appointment by selecting a doctor, date, and time.
   - [ ] **Read appointments (patients and doctors)** Display a list of upcoming appointments for patients and doctors.
-  - [ * ] **Update appointments (patients)** Allow patients to reschedule or cancel appointments.
-  - [ * ] **Delete:** Allow patients to cancel appointments, updating the status to "canceled."
+  - [x] **Update appointments (patients)** Allow patients to reschedule or cancel appointments.
+  - [x] **Delete:** Allow patients to cancel appointments, updating the status to "canceled."
 
-- [ * ] **Interactivity and Enhanced UX**
-  - [ * ] Use form validation for all input fields.
-  - [ * ] Provide real-time feedback for form submissions (e.g., success messages, error handling).
+- [x] **Interactivity and Enhanced UX**
+  - [x] Use form validation for all input fields.
+  - [x] Provide real-time feedback for form submissions (e.g., success messages, error handling).
