@@ -12,7 +12,7 @@ In this assignment, students will design and develop the backend telemedicine ap
 
 1. Express - Backend Web Framework (Node.js)
 2. HTML, CSS (PicoCSS) & JS - Frontend
-3. MySQL - Database 
+3. MySQL - Database
 
 ## Project Requirements
 
@@ -48,31 +48,35 @@ npm run start
 
 ## Core Features Implementation
 
-- [*] **User Management and Authentication**
-  - [*] **Registration of users** by default all users are patients upon registration 
-  - [*] **Login of users**
-  - [*] **User profile management**
+- [ * ] **User Management and Authentication**
 
-- [*] **Session Management**
+  - [ * ] **Registration of users** by default all users are patients upon registration
+  - [ * ] **Login of users**
+  - [ * ] **User profile management**
 
-- [*] **Patient Management**
-  - [*] **Creating** patients through registrations and creating an account.
-  - [*] **Read patients(admin only)** with search and filter options.
-  - [*] **Update profile** Patients can update their profile information.
-  - [*] **Delete account:** Implement a feature for patients to delete their accounts.
+- [ * ] **Session Management**
+
+- [ * ] **Patient Management**
+
+  - [ * ] **Creating** patients through registrations and creating an account.
+  - [ * ] **Read patients(admin only)** with search and filter options.
+  - [ * ] **Update profile** Patients can update their profile information.
+  - [ * ] **Delete account:** Implement a feature for patients to delete their accounts.
 
 - [ ] **Doctor Management**
-  - [*] **Creating (admins only)** new doctors, including their schedules.
+
+  - [ * ] **Creating (admins only)** new doctors, including their schedules.
   - [ ] **Read** Display a list of doctors with their specialization and availability.
   - [ ] **Update:** Allow doctors or admin to update schedules or profile information.
   - [ ] **Delete:** Implement a feature to deactivate or delete doctor profiles.
 
 - [ ] **Appointment Booking:**
-  - [*] **Create appointments (patients)** Patients can book an appointment by selecting a doctor, date, and time.
-  - [ ] **Read appointments (patients and doctors)** Display a list of upcoming appointments for patients and doctors.
-  - [*] **Update appointments (patients)** Allow patients to reschedule or cancel appointments.
-  - [*] **Delete:** Allow patients to cancel appointments, updating the status to "canceled."
 
-- [*] **Interactivity and Enhanced UX**
-  - [*] Use form validation for all input fields.
-  - [*] Provide real-time feedback for form submissions (e.g., success messages, error handling).
+  - [ * ] **Create appointments (patients)** Patients can book an appointment by selecting a doctor, date, and time.
+  - [ ] **Read appointments (patients and doctors)** Display a list of upcoming appointments for patients and doctors.
+  - [ * ] **Update appointments (patients)** Allow patients to reschedule or cancel appointments.
+  - [ * ] **Delete:** Allow patients to cancel appointments, updating the status to "canceled."
+
+- [ * ] **Interactivity and Enhanced UX**
+  - [ * ] Use form validation for all input fields.
+  - [ * ] Provide real-time feedback for form submissions (e.g., success messages, error handling).
