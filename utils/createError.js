@@ -10,8 +10,8 @@ class ApiError extends Error {
   }
 }
 
-const createError = (status, message) => {
-  const err = new ApiError(status, message);
+const createError = (status, message, code) => {
+  const err = new ApiError(message, status, code);
   return err;
 };
 

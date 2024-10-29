@@ -67,14 +67,14 @@
         <div>
           <button
             class="contrast"
-            data-target="create-appointment"
+            data-target="create-doctor"
             onclick="toggleModal(event)"
           >
             <img
               src="/static/assets/appointments.svg"
-              alt="new-appointment"
-              width="18px"
-              height="18px"
+              alt="new-doctor"
+              width="12px"
+              height="12px"
             />
             New Doctor
           </button>
@@ -86,8 +86,8 @@
             <img
               src="/static/assets/appointments.svg"
               alt="new-appointment"
-              width="18px"
-              height="18px"
+              width="12px"
+              height="12px"
             />
             New Appointment
           </button>
@@ -118,34 +118,79 @@
     </main>
     <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
 
-    <!-- Create Appointments Form | Modal -->
-    <dialog id="create-appointment">
+    <!-- Add Doctors Form | Modal -->
+    <dialog id="create-doctor">
       <article>
         <header>
           <button
             aria-label="Close"
             rel="prev"
-            data-target="create-appointment"
+            data-target="create-doctor"
             onclick="toggleModal(event)"
           ></button>
-          <h3>Create Appointment</h3>
+          <h3>Create Doctor</h3>
         </header>
         <section>
-          <form id="appointmentForm">
+          <form id="addProviderForm">
             <article
               id="errorMsg"
               style="display: none; margin: inherit"
             ></article>
             <fieldset>
               <label>
-                Doctor Name
-                <select
-                  id="doctorId"
-                  name="doctorId"
-                  aria-label="Select your care doctor..."
+                Doctor UserName
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Doctor's Username"
+                  autocomplete="primaryEmail"
                   onfocus="removeErrorMsg()"
-                  required
-                ></select>
+                />
+              </label>
+              <label>
+                Primary Email
+                <input
+                  type="text"
+                  id="primaryEmail"
+                  name="primaryEmail"
+                  placeholder="Doctor's Primary Email"
+                  autocomplete="primaryEmail"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
+                Secondary Email
+                <input
+                  type="text"
+                  id="secondaryEmail"
+                  name="secondaryEmail"
+                  placeholder="Doctor's Secondary Email"
+                  autocomplete="secondaryEmail"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  autocomplete="password"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
+                First Name
+                <input
+                  id="firstName"
+                  type="text"
+                  name="appointmentDescription"
+                  placeholder="Appointment Description"
+                  autocomplete="password"
+                  onfocus="removeErrorMsg()"
+                />
               </label>
               <label>
                 Description
@@ -159,19 +204,37 @@
                 />
               </label>
               <label>
-                Date
+                Description
                 <input
-                  id="dateInput"
-                  type="date"
-                  name="appointmentDate"
+                  id="descriptionInput"
+                  type="text"
+                  name="appointmentDescription"
                   placeholder="Appointment Description"
                   autocomplete="password"
                   onfocus="removeErrorMsg()"
                 />
               </label>
-              <label for="time">
-                Time
-                <input id="timeInput" type="time" name="appointmentTime" />
+              <label>
+                Description
+                <input
+                  id="descriptionInput"
+                  type="text"
+                  name="appointmentDescription"
+                  placeholder="Appointment Description"
+                  autocomplete="password"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
+                Date Joined
+                <input
+                  id="dateJoined"
+                  type="date"
+                  name="dateJoined"
+                  placeholder="Date Joined"
+                  autocomplete="dateJoined"
+                  onfocus="removeErrorMsg()"
+                />
               </label>
             </fieldset>
 
