@@ -65,15 +65,15 @@ npm run start
 
 - [ ] **Doctor Management**
 
-  - [x] **Creating (admins only)** new doctors, including their schedules.
+  - [ ] **Creating (admins only)** new doctors, including their schedules.
   - [ ] **Read** Display a list of doctors with their specialization and availability.
   - [ ] **Update:** Allow doctors or admin to update schedules or profile information.
   - [ ] **Delete:** Implement a feature to deactivate or delete doctor profiles.
 
-- [ ] **Appointment Booking:**
+- [x] **Appointment Booking:**
 
   - [x] **Create appointments (patients)** Patients can book an appointment by selecting a doctor, date, and time.
-  - [ ] **Read appointments (patients and doctors)** Display a list of upcoming appointments for patients and doctors.
+  - [x] **Read appointments (patients and doctors)** Display a list of upcoming appointments for patients and doctors.
   - [x] **Update appointments (patients)** Allow patients to reschedule or cancel appointments.
   - [x] **Delete:** Allow patients to cancel appointments, updating the status to "canceled."
 
