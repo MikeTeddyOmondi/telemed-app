@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const doctorsRouter = require("express").Router();
 
 const { pool } = require("../database/init");
@@ -33,18 +34,21 @@ doctorsRouter.post("/add", async function (req, res, next) {
   const validatedProviderInfo = providerSchema.safeParse(req.body);
 
   if (!validatedProviderInfo.success) {
+    console.log({
+      validationErrors: validatedProviderInfo.error.flatten().fieldErrors,
+    });
     return next(createError(400, "Invalid request body", "INVALID_DATA"));
   }
 
   const {
     username,
+    firstName,
+    lastName,
     primaryEmail,
     secondaryEmail,
     password,
-    firstName,
-    lastName,
-    phoneNumber,
     specialty,
+    phoneNumber,
     dateJoined,
   } = validatedProviderInfo.data;
 
@@ -64,9 +68,16 @@ doctorsRouter.post("/add", async function (req, res, next) {
       "INSERT INTO users (username, email, password, role_id) VALUES (?, ?, ?, ?)",
       [String(username).toLowerCase(), primaryEmail, hashedPassword, 2]
     );
+
+    const [patientResult] = await pool().query(
+      "INSERT INTO patients (patient_id) VALUES (?)",
+      [userResult.insertId]
+    );
+
     const [providerResult] = await pool().query(
       `INSERT INTO doctors 
-      (doctor_id, first_name, last_name, doctor_specialty, email_address, phone_number, date_joined) VALUES (?)`,
+      (doctor_id, first_name, last_name, doctor_specialty, email_address, phone_number, date_joined) 
+      VALUES (?,?,?,?,?,?,?)`,
       [
         userResult.insertId,
         firstName,

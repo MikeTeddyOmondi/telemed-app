@@ -25,11 +25,6 @@ const providerSchema = z.object({
       "Password must contain at least one uppercase letter, one lowercase letter, and one number"
     ),
 
-  roleId: z
-    .number()
-    .int("Role ID must be an integer")
-    .positive("Role ID must be positive"),
-
   firstName: z
     .string()
     .min(1, "First name is required")
@@ -44,7 +39,7 @@ const providerSchema = z.object({
     .string()
     .regex(/^\+?[\d\s-()]+$/, "Invalid phone number format")
     .min(10, "Phone number must be at least 10 digits")
-    .max(12, "Phone number cannot exceed 12 digits"),
+    .max(15, "Phone number cannot exceed 15 digits"),
 
   specialty: z
     .string()
@@ -52,8 +47,9 @@ const providerSchema = z.object({
 
   dateJoined: z
     .string()
-    .datetime({ message: "Invalid date format" })
-    .or(z.date()),
+    .min(8, "Invalid date format")
+    // .datetime({ message: "Invalid date format" })
+    // .or(z.date()),
 });
 
 module.exports = { providerSchema };

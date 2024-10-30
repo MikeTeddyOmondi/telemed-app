@@ -1,10 +1,9 @@
 // error Handlers
 const path = require("path");
+const { NODE_ENV } = require("../config");
 
 // API 500 Error handler
 const apiErrorHandler = (err, req, res, next) => {
-  console.error(err.stack);
-
   const status = err.status || 500;
   res.status(status).json({
     error: {
@@ -12,6 +11,7 @@ const apiErrorHandler = (err, req, res, next) => {
       message: err.message || "Internal Server Error",
       code: err.code || "INTERNAL_ERROR",
       status,
+      stack: NODE_ENV === "production" ? {} : err.stack,
     },
   });
 };
@@ -34,7 +34,6 @@ const web404Handler = (req, res) => {
 
 // 500 Catch-all error handler for UI routes
 const webErrorHandler = (err, req, res, next) => {
-  console.error(err.stack);
   res.status(500).sendFile(path.join(__dirname, "..", "public", "500.html"));
 };
 

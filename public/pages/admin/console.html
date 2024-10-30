@@ -16,6 +16,16 @@
         justify-content: space-between;
         align-items: baseline;
       }
+      /* Hide scrollbar for Chrome, Safari, and Opera */
+      .scroll-bar::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge, and Firefox */
+      .scroll-bar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
     </style>
   </head>
   <body>
@@ -149,6 +159,28 @@
                 />
               </label>
               <label>
+                First Name
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="Doctor's Firstname"
+                  autocomplete="firstName"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
+                Last Name
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Doctor's Lastname"
+                  autocomplete="lastName"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
                 Primary Email
                 <input
                   type="text"
@@ -182,46 +214,24 @@
                 />
               </label>
               <label>
-                First Name
+                Doctor Specialty
                 <input
-                  id="firstName"
                   type="text"
-                  name="appointmentDescription"
-                  placeholder="Appointment Description"
-                  autocomplete="password"
+                  id="specialty"
+                  name="specialty"
+                  placeholder="Doctor's Specialty"
+                  autocomplete="specialty"
                   onfocus="removeErrorMsg()"
                 />
               </label>
               <label>
-                Description
+                Phone Number
                 <input
-                  id="descriptionInput"
+                  id="phoneNumber"
                   type="text"
-                  name="appointmentDescription"
-                  placeholder="Appointment Description"
-                  autocomplete="password"
-                  onfocus="removeErrorMsg()"
-                />
-              </label>
-              <label>
-                Description
-                <input
-                  id="descriptionInput"
-                  type="text"
-                  name="appointmentDescription"
-                  placeholder="Appointment Description"
-                  autocomplete="password"
-                  onfocus="removeErrorMsg()"
-                />
-              </label>
-              <label>
-                Description
-                <input
-                  id="descriptionInput"
-                  type="text"
-                  name="appointmentDescription"
-                  placeholder="Appointment Description"
-                  autocomplete="password"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  autocomplete="phoneNumber"
                   onfocus="removeErrorMsg()"
                 />
               </label>
@@ -252,7 +262,7 @@
     </dialog>
 
     <script src="/static/js/theme-toggle.js"></script>
-    <script src="/static/js/console.js"></script>
+    <script src="/static/js/adminConsole.js"></script>
     <script src="/static/js/script.js"></script>
     <script src="/static/js/modal.js"></script>
   </body>
