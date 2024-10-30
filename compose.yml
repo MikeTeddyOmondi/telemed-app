@@ -1,0 +1,45 @@
+services:
+  app:
+    image: telemed-system:latest
+    container_name: telemed_system
+    ports:
+      - "3377:3377"
+    environment:
+      SESSION_SECRET: ${SESSION_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: ${DB_USER}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: 3306
+      DB_HOST: db
+    networks:
+      - telemed_system
+    depends_on:
+      db:
+        condition: service_healthy
+    
+  db:
+    image: mysql:8.0
+    container_name: telemed_system_database
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER} 
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./database/data/mysql:/var/lib/mysql
+    ports:
+      - "33006:3306"
+    networks:
+      - telemed_system
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      retries: 10
+      interval: 2s
+      timeout: 15s
+      start_period: 5s
+
+networks:
+  telemed_system:
+    name: telemed_system
+    driver: bridge

@@ -1,0 +1,118 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeleMed App</title>
+    <link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li>
+            <a href="/console">
+              <img
+                src="/static/assets/monitor_heart.svg"
+                alt="new-appointment"
+                width="48px"
+                height="48px"
+              />
+              <strong>TeleMed App</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/console" class="primary">Dashboard</a>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Account</summary>
+              <ul dir="rtl">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <h1>Account Settings</h1>
+      <section id="modal">
+        <button
+          class="outline contrast"
+          data-target="modal-example"
+          onclick="toggleModal(event)"
+          aria-invalid="true"
+        >
+          <img
+            src="/static/assets/delete.svg"
+            alt="new-appointment"
+            width="24px"
+            height="24px"
+          />
+          Delete Account
+        </button>
+      </section>
+    </main>
+    <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
+
+    <!-- Appointments form | Modal -->
+    <dialog id="modal-example">
+      <article>
+        <header>
+          <button
+            aria-label="Close"
+            rel="prev"
+            data-target="modal-example"
+            onclick="toggleModal(event)"
+          ></button>
+          <h3>Delete Account</h3>
+        </header>
+        <section>
+          <article
+            id="errorMsg"
+            style="display: none; margin: inherit"
+          ></article>
+          <p>Are you sure you want this?</p>
+          <p>This action is irreversible.</p>
+          <p>You will delete all your profile data and appointments.</p>
+        </section>
+        <form id="deleteUserProfileForm">
+          <button
+            type="submit"
+            class="contrast"
+            autofocus
+            data-target="modal-example"
+            onclick=""
+          >
+            Yes, Delete Account
+          </button>
+        </form>
+        <footer></footer>
+      </article>
+    </dialog>
+
+    <script src="/static/js/theme-toggle.js"></script>
+    <script src="/static/js/settings.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/modal.js"></script>
+  </body>
+</html>

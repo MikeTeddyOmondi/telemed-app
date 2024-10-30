@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session");
 const path = require("node:path");
+const morgan = require("morgan");
 
 const {
   PORT,
@@ -13,15 +14,19 @@ const {
   DB_NAME,
   NODE_ENV,
 } = require("./config");
-const router = require("./routes");
+const routes = require("./routes");
 const { initialiseDatabase, pool } = require("./database/init");
+const { web404Handler, webErrorHandler } = require("./middlewares/errorHandlers");
 
 const app = express();
 
 // Serve our static files: html, css & js
 NODE_ENV === "production"
-  ? app.use(express.static(path.join(__dirname, "public"), { maxAge: "1h" })) // cache assets
-  : app.use(express.static(path.join(__dirname, "public")));
+  ? app.use(
+      "/static/",
+      express.static(path.join(__dirname, "public"), { maxAge: "1h" })
+    ) // cache assets
+  : app.use("/static/", express.static(path.join(__dirname, "public")));
 
 // Sessions
 const sessionStoreOpts = {
@@ -60,13 +65,15 @@ app.use(
     },
   })
 );
+// Tracing
+NODE_ENV === "production" ? app.use(morgan("common")) : app.use(morgan("dev"));
 
-app.use("/", router);
+// Mount All Routes
+app.use('/', routes);
 
-// Catch errors
-app.use((req, res) => {
-  return res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
-});
+// UI-specific error handling
+app.use(web404Handler);
+app.use(webErrorHandler);
 
 (async function () {
   try {
@@ -74,11 +81,11 @@ app.use((req, res) => {
     await initialiseDatabase();
 
     app.listen(PORT, "0.0.0.0", () => {
-      console.log(`[#] Server listening: http://localhost:${PORT}`);
+      console.log(`[#] ✅ Server is running: http://localhost:${PORT} 🚀🚀🚀`);
     });
   } catch (error) {
     console.error({
-      application_error: `[!] Error starting the application: ${error.message}`,
+      application_error: `[!] ❌ Error starting the application: ${error.message}`,
     });
   }
 })();

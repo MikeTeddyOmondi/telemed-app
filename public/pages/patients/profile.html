@@ -1,0 +1,136 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeleMed App</title>
+    <link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      #modal {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li>
+            <a href="/console">
+              <img
+                src="/static/assets/monitor_heart.svg"
+                alt="new-appointment"
+                width="48px"
+                height="48px"
+              />
+              <strong>TeleMed App</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/console" class="primary">Dashboard</a>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Account</summary>
+              <ul dir="rtl">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <section id="modal">
+        <h1>Profile</h1>
+        <button
+          class="contrast"
+          data-target="modal-example"
+          onclick="toggleModal(event)"
+        >
+          <img
+            src="/static/assets/edit.svg"
+            alt="edit-profile"
+            width="18px"
+            height="18px"
+          />
+          Edit Profile
+        </button>
+      </section>
+
+      <article id="profileCard" aria-busy="false">Profile details</article>
+    </main>
+    <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
+
+    <!-- Edit profile form | Modal -->
+    <dialog id="modal-example">
+      <article>
+        <header>
+          <button
+            aria-label="Close"
+            rel="prev"
+            data-target="modal-example"
+            onclick="toggleModal(event)"
+          ></button>
+          <h3>Edit Profile</h3>
+        </header>
+        <section>
+          <form id="appointmentForm">
+            <article
+              id="errorMsg"
+              style="display: none; margin: inherit"
+            ></article>
+            <fieldset>
+              <label>
+                Username
+                <input
+                  id="usernameInput"
+                  type="text"
+                  name="usernameInput"
+                  placeholder="New username"
+                  autocomplete="usernameInput"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+            </fieldset>
+
+            <button
+              id="editProfileSubmitButton"
+              type="submit"
+              aria-busy="false"
+            >
+              Save
+            </button>
+          </form>
+        </section>
+        <footer></footer>
+      </article>
+    </dialog>
+
+    <script src="/static/js/theme-toggle.js"></script>
+    <script src="/static/js/profile.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/modal.js"></script>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeleMed App</title>
+    <link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      #modal {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li>
+            <a href="/console">
+              <img
+                src="/static/assets/monitor_heart.svg"
+                alt="new-appointment"
+                width="48px"
+                height="48px"
+              />
+              <strong>TeleMed App</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/console" class="primary">Dashboard</a>
+          </li>
+          |
+          <li>
+            <a href="/admin-console" class="primary">Admin Console</a>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary>Account</summary>
+              <ul dir="rtl">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <section id="modal">
+        <h1>Patient Dashboard</h1>
+        <button
+          class="contrast"
+          data-target="create-appointment"
+          onclick="toggleModal(event)"
+        >
+          <img
+            src="/static/assets/appointments.svg"
+            alt="new-appointment"
+            width="18px"
+            height="18px"
+          />
+          New Appointment
+        </button>
+      </section>
+
+      <article id="spanMsg" style="display: none; margin: inherit"></article>
+
+      <!-- Appointments Table -->
+      <section id="tables">
+        <h2>Appointments</h2>
+        <div class="overflow-auto">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th scope="col">Appointment ID</th>
+                <th scope="col">Doctor's Name</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Appointment Time</th>
+                <th scope="col">Appointment Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appointments-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="container">2024. TeleMed App. All Rights Reserverd.</footer>
+
+    <!-- Create Appointments Form | Modal -->
+    <dialog id="create-appointment">
+      <article>
+        <header>
+          <button
+            aria-label="Close"
+            rel="prev"
+            data-target="create-appointment"
+            onclick="toggleModal(event)"
+          ></button>
+          <h3>Create Appointment</h3>
+        </header>
+        <section>
+          <form id="appointmentForm">
+            <article
+              id="errorMsg"
+              style="display: none; margin: inherit"
+            ></article>
+            <fieldset>
+              <label>
+                Doctor Name
+                <select
+                  id="doctorId"
+                  name="doctorId"
+                  aria-label="Select your care doctor..."
+                  onfocus="removeErrorMsg()"
+                  required
+                ></select>
+              </label>
+              <label>
+                Description
+                <input
+                  id="descriptionInput"
+                  type="text"
+                  name="appointmentDescription"
+                  placeholder="Appointment Description"
+                  autocomplete="password"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label>
+                Date
+                <input
+                  id="dateInput"
+                  type="date"
+                  name="appointmentDate"
+                  placeholder="Appointment Description"
+                  autocomplete="password"
+                  onfocus="removeErrorMsg()"
+                />
+              </label>
+              <label for="time">
+                Time
+                <input id="timeInput" type="time" name="appointmentTime" />
+              </label>
+            </fieldset>
+
+            <button
+              id="appointmentSubmitButton"
+              type="submit"
+              aria-busy="false"
+            >
+              Save
+            </button>
+          </form>
+        </section>
+        <footer></footer>
+      </article>
+    </dialog>
+
+    <script src="/static/js/theme-toggle.js"></script>
+    <script src="/static/js/console.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/modal.js"></script>
+  </body>
+</html>

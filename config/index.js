@@ -12,10 +12,9 @@ const envSchema = z.object({
   DB_NAME: z.string().nonempty("DB_NAME is required"),
   DB_PORT: z.string().default("3306").transform(Number),
   PORT: z.string().default("3000").transform(Number),
+  JWT_SECRET: z.string().nonempty("JWT_SECRET is required"),
   SESSION_SECRET: z.string().nonempty("SESSION_SECRET is required"),
-  NODE_ENV: z
-    .enum(["development", "production"])
-    .default("development"),
+  NODE_ENV: z.enum(["development", "production"]).default("development"),
 });
 
 // Parse and validate the environment variables
@@ -35,6 +34,7 @@ const {
   DB_PORT,
   DB_NAME,
   NODE_ENV,
+  JWT_SECRET,
   SESSION_SECRET,
   PORT,
 } = env.data;
@@ -46,6 +46,7 @@ module.exports = {
   DB_PORT,
   DB_NAME,
   NODE_ENV,
+  JWT_SECRET,
   SESSION_SECRET,
   PORT,
 };

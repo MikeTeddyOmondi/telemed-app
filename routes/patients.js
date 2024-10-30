@@ -1,12 +1,15 @@
 const patientsRouter = require("express").Router();
 
-// Get all patients | Patients & Doctor/ADMINs ONLY
+// Get all patients info | Patient / Doctor / Admins ONLY
 patientsRouter.get("/", async function (req, res) {});
 
-// Update
-patientsRouter.put("/", async function (req, res) {});
+// Get one patient's info | Patient / Doctor / Admins ONLY
+patientsRouter.get("/:patient_id", async function (req, res) {});
 
-// Delete patients accounts | Patients & ADMINs only
-patientsRouter.delete("/profile", async function (req, res) {});
+// Update one patient's info | Patient / Doctor / Admins ONLY
+patientsRouter.put("/:patient_id", async function (req, res) {});
+
+// Delete one patient's info | Patient / Doctor / Admins ONLY
+// patientsRouter.delete("/profile", async function (req, res) {});
 
 module.exports = patientsRouter;
