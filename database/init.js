@@ -22,10 +22,13 @@ async function initialiseDatabase() {
 
   // create database, tables and relationships
   try {
-    await db.query("CREATE DATABASE IF NOT EXISTS telemed_app;");
+    // await db.query("CREATE DATABASE IF NOT EXISTS telemed_app;");
+    await db.query("CREATE DATABASE IF NOT EXISTS bp8yzqtsbqlgggmtixky;");
 
     // use telemed_app;
-    await db.changeUser({ database: "telemed_app" });
+    // await db.changeUser({ database: "telemed_app" });
+    // use bp8yzqtsbqlgggmtixky;
+    await db.changeUser({ database: "bp8yzqtsbqlgggmtixky" });
 
     // Create the 'roles' table if it doesn't exist
     const rolesTable = `
@@ -204,7 +207,7 @@ function pool() {
   return mysql.createPool({
     ...dbConfig,
     waitForConnections: true,
-    connectionLimit: 10, // pool size
+    connectionLimit: 3, // pool size
     queueLimit: 0,
   });
 }

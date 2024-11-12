@@ -80,3 +80,16 @@ npm run start
 - [x] **Interactivity and Enhanced UX**
   - [x] Use form validation for all input fields.
   - [x] Provide real-time feedback for form submissions (e.g., success messages, error handling).
+
+
+### Start using docker 
+
+```
+docker run -p 3377:3377 -e DB_PASSWORD=password -e DB_HOST=172.17.0.1 -e DB_USER=root -e DB_NAME=telemed_app -e DB_PORT=3307 -e SESSION_SECRET=dKC1ps//3/ibNgl4r+EcV4TizYsKtPkd4d/micUR3YDrL3rv33oCm+/ek2Sr/ih0piYW1EqfmSTPvTeuaKuMyA== -e JWT_SECRET=P5tgoyVRCzML7TmhNjQATnsAidGRTr6S+ztLFOIPQOQ= --name telemed-system telemed-system:latest
+```
+
+
+## Setup
+
+1. Seed database with: admin user and roles
+
