@@ -1,6 +1,7 @@
 const apiRouter = require("express").Router();
 
 const usersRouter = require("./users");
+const publicApiRouter = require("./public");
 const doctorsRouter = require("./doctors");
 const patientsRouter = require("./patients");
 const appointmentsRouter = require("./appointments");
@@ -11,6 +12,7 @@ const {
   apiErrorHandler,
 } = require("../middlewares/errorHandlers");
 
+apiRouter.use("/new-contact", publicApiRouter); // managing users
 apiRouter.use("/users", usersRouter); // managing users
 apiRouter.use("/:account_id/doctors", apiAuth, doctorsRouter); // managing doctors
 apiRouter.use("/:account_id/patients", patientsRouter); // patients routes

@@ -34,6 +34,7 @@ const web404Handler = (req, res) => {
 
 // 500 Catch-all error handler for UI routes
 const webErrorHandler = (err, req, res, next) => {
+  console.log({ err });
   res.status(500).sendFile(path.join(__dirname, "..", "public", "500.html"));
 };
 

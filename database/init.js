@@ -176,6 +176,20 @@ async function initialiseDatabase() {
     await db.query(dischargesTable);
     // console.log("Discharges table created or already exists");
 
+    // Create the 'contacts' table
+    const contactsTable = `
+      CREATE TABLE IF NOT EXISTS contacts (
+          contact_id INT PRIMARY KEY AUTO_INCREMENT,
+          first_name VARCHAR(50),
+          last_name VARCHAR(50),
+          email VARCHAR(50),
+          phone_number VARCHAR(20),
+          message VARCHAR(500)
+      )
+    `;
+    await db.query(contactsTable);
+    // console.log("Contacts table created or already exists");
+
     console.log("[#] Database migrations completed!");
   } catch (err) {
     console.error("Error initializing database: ", err);

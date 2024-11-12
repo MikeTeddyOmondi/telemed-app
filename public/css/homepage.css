@@ -71,6 +71,14 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+#errorMsg {
+  padding: 0.4rem;
+  flex: 1;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
 header {
   background-image: linear-gradient(
       to right,
